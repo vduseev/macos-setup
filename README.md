@@ -1,7 +1,9 @@
-# Collection of personal configs
-Personal configs and setup instructions
+# macOS Development System Deployment
 
-This repository contains everything required for a from the ground up system set up on MacOS.
+This repository provides automated scripts, instructions, and playbooks to set up a macOS based development environment from scratch.
+
+Based on:
+   - [geerlingguy/mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook)
 
 ## List of major components
 * System tools (CLI)
