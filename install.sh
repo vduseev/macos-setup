@@ -12,16 +12,9 @@ if ! [ -t 1 ]; then
   exit 1
 fi
 
-# Request sudo access from user
-# Here, $0 expands to the name of the script, and $@ expands to
-# the list of parameters passed to the script
-echo 'INFO: Please provide sudo password...'
-echo "$0"
-sudo "$0" "$@"
-
-
 # Change work directory to the user's home
 cd ~
 
 # Start with cloning the repository
 git clone https://github.com/vduseev/macos-setup.git ~/Source/macos-setup
+chown -R $(whoami) ~/Source
