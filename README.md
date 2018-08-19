@@ -2,6 +2,7 @@
 
 This repository provides automated scripts, instructions, and playbooks to set up a macOS based development environment from scratch.
 
+
 Based on:
    - [geerlingguy/mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook)
    - [High Sierra .iso instructions](https://tobiwashere.de/2017/10/virtualbox-how-to-create-a-macos-high-sierra-vm-to-run-on-a-mac-host-system/)
