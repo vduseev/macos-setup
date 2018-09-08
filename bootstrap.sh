@@ -37,7 +37,7 @@ cp -R "${TMPDIR}bash-oo-framework/lib" "${TMPDIR}macos-setup"
 rm -rf "${TMPDIR}bash-oo-framework"
 
 # Activate bash-oo-framework
-source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
+source "${TMPDIR}macos-setup/lib/oo-bootstrap.sh"
 
 # Enable try-catch and exception printing functionality
 import util/tryCatch
