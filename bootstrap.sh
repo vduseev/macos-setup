@@ -36,5 +36,22 @@ git clone https://github.com/niieani/bash-oo-framework.git $TMPDIR/bash-oo-frame
 cp $TMPDIR/bash-oo-framework/lib $TMPDIR/macos-setup
 rm -rf $TMPDIR/bash-oo-framework
 
-# Launch installation script
-$TMPDIR/macos-setup/install.sh
+# Activate bash-oo-framework
+source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
+
+# Enable try-catch and exception printing functionality
+import util/tryCatch
+import util/exception
+
+try {
+  # Launch installation script
+  $TMPDIR/macos-setup/install.sh
+} catch {
+  echo "Caught Exception:$(UI.Color.Red) $__BACKTRACE_COMMAND__ $(UI.Color.Default)"
+  echo "File: $__BACKTRACE_SOURCE__, Line: $__BACKTRACE_LINE__"
+
+  Exception::PrintException "${__EXCEPTION__[@]}"
+}
+
+# Perform final cleanup
+rm -rf $TMPDIR/macos-setup
