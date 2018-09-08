@@ -29,12 +29,12 @@ if ! [ -t 1 ]; then
 fi
 
 # Start with cloning the repositories
-git clone https://github.com/vduseev/macos-setup.git $TMPDIR/macos-setup
-git clone https://github.com/niieani/bash-oo-framework.git $TMPDIR/bash-oo-framework
+git clone https://github.com/vduseev/macos-setup.git "${TMPDIR}macos-setup"
+git clone https://github.com/niieani/bash-oo-framework.git "${TMPDIR}bash-oo-framework"
 
 # Copy the framework files from repo and erase it
-cp $TMPDIR/bash-oo-framework/lib $TMPDIR/macos-setup
-rm -rf $TMPDIR/bash-oo-framework
+cp -R "${TMPDIR}bash-oo-framework/lib" "${TMPDIR}macos-setup"
+rm -rf "${TMPDIR}bash-oo-framework"
 
 # Activate bash-oo-framework
 source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
@@ -45,7 +45,7 @@ import util/exception
 
 try {
   # Launch installation script
-  $TMPDIR/macos-setup/install.sh
+  exec "${TMPDIR}macos-setup/install.sh"
 } catch {
   echo "Caught Exception:$(UI.Color.Red) $__BACKTRACE_COMMAND__ $(UI.Color.Default)"
   echo "File: $__BACKTRACE_SOURCE__, Line: $__BACKTRACE_LINE__"
@@ -54,4 +54,4 @@ try {
 }
 
 # Perform final cleanup
-rm -rf $TMPDIR/macos-setup
+rm -rf "${TMPDIR}macos-setup"
