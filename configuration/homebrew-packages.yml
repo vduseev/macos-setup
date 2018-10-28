@@ -1,0 +1,65 @@
+---
+
+homebrew_installed_packages:
+  - autoconf
+  - automake
+  - coreutils
+  - gettext
+  - readline
+
+  - bash-completion
+  - gnu-sed
+  - tmux
+  - grc
+  - jq
+
+  - git
+  - ghi
+    
+  - go
+  - graphviz
+  - node
+  - sqlite
+  - nvm
+  - pyenv         
+  - rbenv         
+  - doxygen       
+
+  - httpie
+  - iperf
+  - nmap
+  - htop
+  - wget
+  - gifsicle
+  - doctl
+  - telnet
+  - webp
+
+  - libevent
+  - libyaml       
+  - lzo
+
+  - ssh-copy-id
+  - openssl
+  - openvpn       
+  - gnupg 
+  - pass
+
+homebrew_taps:
+  - homebrew/core
+  - homebrew/cask
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - chromedriver
+  - docker
+  - firefox
+  - google-chrome
+  - handbrake
+  - macvim
+  - vagrant
+  - atom
+  - smcfancontrol
+  - tunnelblick
+  - virtualbox
+
