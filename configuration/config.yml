@@ -3,8 +3,9 @@
 # Install packages from other package managers.
 # Note: You are responsible for making sure the required package managers are
 # installed, eg. through homebrew.
-#
-# Tasks flags
+
+# Task flags
+configure_ansible: yes
 configure_dotfiles: yes
 configure_sudoers: yes
 configure_terminal: yes

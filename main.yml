@@ -11,9 +11,11 @@
   vars_files:
     # General config with on/off flags
     - configuration/config.yml
-    # List of global packages for pip, composer, npm, etc.
-    - configuration/global-packages.yml
     - configuration/homebrew-packages.yml
+    - configuration/composer-packages.yml
+    - configuration/gem-packages.yml
+    - configuration/npm-packages.yml
+    - configuration/pip-packages.yml
 
   roles:
     - role: geerlingguy.homebrew
@@ -24,21 +26,35 @@
       tags: ['dotfiles']
 
     - role: geerlingguy.mas
+      # When list in mas-apps config is not empty
       when: mas_installed_apps
       tags: ['mas']
 
   tasks:
-    - include_tasks: tasks/setup-ansible.yml
+    - include_tasks: tasks/ansible.yml
+      when: configure_ansible
+      tags: ['ansible']
 
-    - include_tasks: tasks/setup-sudoers.yml
+    - include_tasks: tasks/sudoers.yml
       when: configure_sudoers
+      tags: ['sudoers']
 
-    - include_tasks: tasks/setup-terminal.yml
+    - include_tasks: tasks/terminal.yml
       when: configure_terminal
+      tags: ['terminal']
 
-    - include_tasks: tasks/setup-macos-system-config.yml
+    - include_tasks: tasks/macos-system-config.yml
       when: configure_macos_system_config
       tags: ['macos-system-config']
 
-    - include_tasks: tasks/setup-global-packages.yml
-      tags: ['global-packages']
+    - include_tasks: tasks/install-global-composer-packages.yml
+      tags: ['composer-packages']
+
+    - include_tasks: tasks/install-global-gem-packages.yml
+      tags: ['gem-packages']
+
+    - include_tasks: tasks/install-global-npm-packages.yml
+      tags: ['npm-packages']
+
+    - include_tasks: tasks/install-global-pip-packages.yml
+      tags: ['pip-packages']
