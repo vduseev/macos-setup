@@ -57,6 +57,7 @@ homebrew_cask_apps:
   - google-chrome
   - handbrake
   - macvim
+  - iterm2
   - vagrant
   - atom
   - smcfancontrol
