@@ -146,6 +146,7 @@ install() {
   ensure_pip
   ensure_ansible
   ensure_ansible_galaxy_roles
+  run_ansible_playbook
 
   return 1
 }
@@ -175,6 +176,11 @@ ensure_ansible() {
 ensure_ansible_galaxy_roles() {
   notice "Making sure required ansible roles are installed ..."
   ansible-galaxy install -r "${WORK_DIR}/required-ansible-galaxy-roles.yml"
+}
+
+run_ansible_playbook() {
+  notice "Running ansible playbook ..."
+  ansible-playbook -i "${WORK_DIR}/inventory" "${WORK_DIR}/main.yml" -K
 }
 
 # Run main function
