@@ -19,6 +19,9 @@ RED="\033[0:31m"
 GREEN="\033[1:32m"
 NC="\033[0m"  # No Color
 
+debug() {
+  echo -e "[DEBUG ] $1"
+}
 info() {
   echo -e "[INFO  ] $1"
 }
@@ -62,12 +65,14 @@ run_checks() {
   notice "Running verification checks ..."
 
   # Verify that user belongs to the admin group
+  debug "Verifying user belongs to the admin group ..."
   if ! id -Gn $(whoami) | grep -q -w admin; then
     error "This script must be ran by the admin user."
     return 1
   fi 
 
   # Verify script is ran from the terminal
+  debug "Verifying script is running from the terminal ..."
   if ! [ -t 1 ]; then
     error "The script is tailored to be ran from the terminal."
     return 1 
@@ -104,15 +109,16 @@ clone_repository_to_tmp_dir() {
   # Use local directory instead of the remote one 
   # if mode is set to "dev" 
   if [ "$__mode" == "dev" ]; then
+    notice "Script mode is set to 'dev'"
 
     # If STR="/path/to/foo.cpp", then
     # ${STR##*/} returns foo.cpp (basepath)
     if [ "${__script_dir##*/}" == "macos-setup" ]; then
+      debug "Running the script from macos-setup dir in dev mode"
       # Copy current directory to work dir
-      cp -R . "${WORK_DIR}"
-      cd "${WORK_DIR}"
-      # Switch to "dev" branch
-      git checkout dev
+      mkdir -p "${WORK_DIR}"
+      cp -R -v "$__script_dir" "${TMPDIR}"
+      debug "Directory is copied to the tmp location"
     else
       error "Can't run in DEV mode outside of macos-setup directory!"
       return 1
@@ -137,38 +143,38 @@ cleanup_tmp_dir() {
 }
 
 install() {
-   ensure_pip
-   ensure_ansible
-   ensure_ansible_galaxy_roles
+  ensure_pip
+  ensure_ansible
+  ensure_ansible_galaxy_roles
 
-   return 1
+  return 1
 }
 
 ensure_pip() {
-   notice "Making sure pip is installed ..."
-   if hash pip 2>/dev/null; then
-     info "pip is already installed"
-     printf "$(pip --version)\n"
-   else
-     info "pip not found. Installing pip ..."
-     sudo easy_install pip
-   fi
+  notice "Making sure pip is installed ..."
+  if hash pip 2>/dev/null; then
+    info "pip is already installed"
+    printf "$(pip --version)\n"
+  else
+    info "pip not found. Installing pip ..."
+    sudo easy_install pip
+  fi
 }
 
 ensure_ansible() {
-   notice "Making sure ansible is installed ..."
-   if hash ansible 2>/dev/null; then
-     info "ansible is already installed"
-     printf "$(ansible --version)\n"
-   else
-     info "ansible not found. Installing ansible ..."
-     sudo -H pip install ansible
-   fi
+  notice "Making sure ansible is installed ..."
+  if hash ansible 2>/dev/null; then
+    info "ansible is already installed"
+    printf "$(ansible --version)\n"
+  else
+    info "ansible not found. Installing ansible ..."
+    sudo -H pip install ansible
+  fi
 }
 
 ensure_ansible_galaxy_roles() {
   notice "Making sure required ansible roles are installed ..."
-  ansible-galaxy install -r required-ansible-galaxy-roles.yml
+  ansible-galaxy install -r "${WORK_DIR}/required-ansible-galaxy-roles.yml"
 }
 
 # Run main function
