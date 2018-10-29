@@ -1,0 +1,14 @@
+---
+
+# Dotfiles settings
+dotfiles_repo: https://github.com/vduseev/dotfiles.git
+dotfiles_repo_accept_hostkey: yes
+dotfiles_repo_local_destination: ~/.dotfiles
+dotfiles_files:
+  - .bash_profile
+  - .gitignore
+  - .gitconfig
+  - .inputrc
+  - .macos
+  - .vimrc
+

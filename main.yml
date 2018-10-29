@@ -1,10 +1,17 @@
 ---
 
+# Run on all hosts specified in "inventory" file.
+# Currently covers just the localhost.
 - hosts: all
+
+  # Only localhost connection
   connection: local
 
+  # Import the following configuration files
   vars_files:
+    # General config with on/off flags
     - configuration/config.yml
+    # List of global packages for pip, composer, npm, etc.
     - configuration/global-packages.yml
     - configuration/homebrew-packages.yml
 

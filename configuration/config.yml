@@ -1,29 +1,11 @@
 ---
 
-# Ansible downloads directory
-ansible_downloads_dir: ~/.ansible-downloads/
-
-# macos configuration script command
-macos_system_config_script: "~/.macos --no-restart"
-
-# See `geerlingguy.mas` role documentation for usage instructions.
-mas_email: ""
-mas_password: ""
-
+# Install packages from other package managers.
+# Note: You are responsible for making sure the required package managers are
+# installed, eg. through homebrew.
+#
 # Tasks flags
 configure_dotfiles: yes
 configure_sudoers: yes
 configure_terminal: yes
 configure_macos_system_config: yes
-
-# Dotfiles settings
-dotfiles_repo: https://github.com/vduseev/dotfiles.git
-dotfiles_repo_accept_hostkey: yes
-dotfiles_repo_local_destination: ~/.dotfiles
-dotfiles_files:
-  - .bash_profile
-  - .gitignore
-  - .gitconfig
-  - .inputrc
-  - .macos
-  - .vimrc
