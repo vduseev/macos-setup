@@ -139,6 +139,7 @@ cleanup_tmp_dir() {
 install() {
    ensure_pip
    ensure_ansible
+   ensure_ansible_galaxy_roles
 
    return 1
 }
@@ -163,6 +164,11 @@ ensure_ansible() {
      info "ansible not found. Installing ansible ..."
      sudo -H pip install ansible
    fi
+}
+
+ensure_ansible_galaxy_roles() {
+  notice "Making sure required ansible roles are installed ..."
+  ansible-galaxy install -r required-ansible-galaxy-roles.yml
 }
 
 # Run main function
