@@ -1,0 +1,37 @@
+---
+
+- hosts: all
+  connection: local
+
+  vars_files:
+    - configuration/config.yml
+    - configuration/global-packages.yml
+    - configuration/homebrew-packages.yml
+
+  roles:
+    - role: geerlingguy.homebrew
+      tags: ['homebrew']
+
+    - role: geerlingguy.dotfiles
+      when: configure_dotfiles
+      tags: ['dotfiles']
+
+    - role: geerlingguy.mas
+      when: mas_installed_apps
+      tags: ['mas']
+
+  tasks:
+    - include_tasks: tasks/setup-ansible.yml
+
+    - include_tasks: tasks/setup-sudoers.yml
+      when: configure_sudoers
+
+    - include_tasks: tasks/setup-terminal.yml
+      when: configure_terminal
+
+    - include_tasks: tasks/setup-macos-system-config.yml
+      when: configure_macos_system_config
+      tags: ['macos-system-config']
+
+    - include_tasks: tasks/setup-global-packages.yml
+      tags: ['global-packages']

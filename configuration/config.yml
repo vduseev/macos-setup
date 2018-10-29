@@ -14,7 +14,7 @@ mas_password: ""
 configure_dotfiles: yes
 configure_sudoers: yes
 configure_terminal: yes
-configure_osx: yes
+configure_macos_system_config: yes
 
 # Dotfiles settings
 dotfiles_repo: https://github.com/vduseev/dotfiles.git
@@ -23,6 +23,7 @@ dotfiles_repo_local_destination: ~/.dotfiles
 dotfiles_files:
   - .bash_profile
   - .gitignore
+  - .gitconfig
   - .inputrc
-  - .osx
+  - .macos
   - .vimrc
