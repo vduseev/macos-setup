@@ -117,7 +117,7 @@ clone_repository_to_tmp_dir() {
       debug "Running the script from macos-setup dir in dev mode"
       # Copy current directory to work dir
       mkdir -p "${WORK_DIR}"
-      cp -R -v "$__script_dir" "${TMPDIR}"
+      cp -R "$__script_dir" "${TMPDIR}"
       debug "Directory is copied to the tmp location"
     else
       error "Can't run in DEV mode outside of macos-setup directory!"
