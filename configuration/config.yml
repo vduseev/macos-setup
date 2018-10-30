@@ -4,9 +4,3 @@
 # Note: You are responsible for making sure the required package managers are
 # installed, eg. through homebrew.
 
-# Task flags
-configure_ansible: yes
-configure_dotfiles: yes
-configure_sudoers: yes
-configure_terminal: yes
-configure_macos_system_config: yes
