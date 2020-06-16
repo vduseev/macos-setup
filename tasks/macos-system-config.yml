@@ -1,0 +1,10 @@
+---
+
+- name: Set .macos dotfile execution command
+  set_fact:
+    macos_system_config_script: "~/.macos --no-restart"
+
+# TODO: Use sudo once .macos can be run via root with no user interaction.
+- name: Run .macos dotfile
+  shell: "{{ macos_system_config_script }}"
+  changed_when: false

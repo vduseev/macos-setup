@@ -1,0 +1,56 @@
+---
+
+# Run on all hosts specified in "inventory" file.
+# Currently covers just the localhost.
+- hosts: all
+
+  # Only localhost connection
+  connection: local
+
+  # Import the following configuration files
+  vars_files:
+    # General config with on/off flags
+    - configuration/config.yml
+    - configuration/dotfiles.yml
+    - configuration/homebrew-packages.yml
+    - configuration/composer-packages.yml
+    - configuration/gem-packages.yml
+    - configuration/npm-packages.yml
+    - configuration/pip-packages.yml
+    - configuration/mas-apps.yml
+
+  roles:
+    - role: geerlingguy.homebrew
+      tags: ['homebrew']
+
+    - role: geerlingguy.dotfiles
+      tags: ['dotfiles']
+
+    - role: geerlingguy.mas
+      when: mas_installed_apps
+      tags: ['mas']
+
+  tasks:
+    - include: tasks/ansible.yml
+      tags: ['ansible']
+
+    - include: tasks/sudoers.yml
+      tags: ['sudoers']
+
+    - include: tasks/terminal.yml
+      tags: ['terminal']
+
+    - include: tasks/macos-system-config.yml
+      tags: ['macos-system-config']
+
+    - include: tasks/install-global-composer-packages.yml
+      tags: ['composer-packages']
+
+    - include: tasks/install-global-gem-packages.yml
+      tags: ['gem-packages']
+
+    - include: tasks/install-global-npm-packages.yml
+      tags: ['npm-packages']
+
+    - include: tasks/install-global-pip-packages.yml
+      tags: ['pip-packages']

@@ -1,0 +1,43 @@
+---
+
+# Custom Terminal theme.
+- name: Get current Terminal profile.
+  shell: defaults read com.apple.terminal 'Default Window Settings'
+  register: terminal_theme
+  changed_when: false
+  check_mode: no
+
+- name: Ensure custom Terminal profile is added.
+  shell: open files/terminal/JJG-Term.terminal
+  changed_when: false
+  when: "'JJG-Term' not in terminal_theme.stdout"
+
+# TODO: This doesn't work in Yosemite. Consider a different solution?
+- name: Ensure custom Terminal profile is set as default.
+  shell: "{{ item }}"
+  with_items:
+    - defaults write com.apple.terminal 'Default Window Settings' -string JJG-Term
+    - defaults write com.apple.terminal 'Startup Window Settings' -string JJG-Term
+  changed_when: false
+  when: "'JJG-Term' not in terminal_theme.stdout"
+
+- name: Install Vundle plugin manager for Vim
+  git:
+    repo: "https://github.com/VundleVim/Vundle.vim.git" 
+    dest: "~/.vim/bundle/Vundle.vim"
+
+- name: Ensure Homebrew installed Basg is added to /etc/shells
+  lineinfile:
+    path: /etc/shells
+    line: "/usr/local/bin/bash"
+    state: present
+  become: yes
+
+- name: Set Homebrew installed Bash as default
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: "/usr/local/bin/bash"
+  become: yes
+
+# TODO: remap Caps Lock modifier key to Ctrl
+# TODO: remap Right Alt to Esc
